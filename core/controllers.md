@@ -370,9 +370,10 @@ So for the path `/user/{uuid}/bookmarks`, you must use `__invoke(string $uuid)`.
 There is another way to create a custom operation. However, we do not encourage its use. Indeed, this one disperses
 the configuration at the same time in the routing and the resource configuration.
 
+If you use attributes, you can configure route name in your operations to refer to Symfony route with the same name.
 The `post_publication` operation references the Symfony route named `book_post_publication`.
 
-Since version 2.3, you can also use the route name as operation name by convention, as shown in the following example
+Since version 2.3, with attributes or XML/YAML configuration, you can also use the route name as operation name by convention, as shown in the following example
 for `book_post_discontinuation` when neither `method` nor `routeName` attributes are specified.
 
 First, let's create your resource configuration:
@@ -405,9 +406,6 @@ resources:
     App\Entity\Book:
         operations:
             ApiPlatform\Metadata\Get: ~
-            post_publication:
-                class: ApiPlatform\Metadata\Post
-                routeName: book_post_publication
             book_post_discontinuation:
               class: ApiPlatform\Metadata\Post
 ```
@@ -423,7 +421,6 @@ resources:
     <resource class="App\Entity\Book">
         <operations>
             <operation class="ApiPlatform\Metadata\Get" />
-            <operation class="ApiPlatform\Metadata\Post" name="post_publication" routeName="book_post_publication" />
             <operation class="ApiPlatform\Metadata\Post" name="book_post_discontinuation" />
         </operations>
     </resource>
